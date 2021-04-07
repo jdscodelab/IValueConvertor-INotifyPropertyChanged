@@ -1,0 +1,33 @@
+﻿<Window x:Class="IValueConvertor_INotifyPropertyChanged.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IValueConvertor_INotifyPropertyChanged"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="300" Width="300">
+    <Window.Resources>
+        <local:TextToBoolConvertor x:Key="TextToBoolConvertor"/>
+    </Window.Resources>
+    <Grid>
+        <Label x:Name="label" Content="IValueConverter" HorizontalAlignment="Left" Margin="57,10,0,0" VerticalAlignment="Top"/>
+
+        <Label Content="Value 1:" HorizontalAlignment="Left" Margin="29,165,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtVal1" Text="{Binding Value1, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="85,165,0,0" VerticalAlignment="Top" Width="180"/>
+        <Label Content="Value 2:" HorizontalAlignment="Left" Margin="29,193,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtVal2" Text="{Binding Value2, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="85,193,0,0" VerticalAlignment="Top" Width="180"/>
+        <Label Content="Sum:" HorizontalAlignment="Left" Margin="29,221,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtSum" Text="{Binding Sum, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="85,221,0,0" VerticalAlignment="Top" Width="180"/>
+        
+        
+<!--The     sum is not getting calculated As we desired so here comes the role of INotifyPropertyChanged.. to notify the view or viewmodel that our property has to bee updated.. lets do it then..-->
+        
+        <Label x:Name="label_Copy" Content="INotifyPropertyChanged" HorizontalAlignment="Left" Margin="57,134,0,0" VerticalAlignment="Top"/>
+        
+        <!--So, here we want to Check our checkbox when the "Yes" is typed in Value1 Textbox and vice versa if checkbox is in checked state than our textbox should show yes text.. for that we will use IValueConvertor.. follow me here..-->
+        
+        <CheckBox x:Name="checkBox" IsChecked="{Binding Text, ElementName=txtVal1, Converter={StaticResource TextToBoolConvertor}}" Content="1st Textbox has Value" HorizontalAlignment="Left" Margin="29,41,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkBox_Copy" IsChecked="{Binding Text, ElementName=txtVal2, Converter={StaticResource TextToBoolConvertor}}"  Content="2nd Textbox has Value" HorizontalAlignment="Left" Margin="29,61,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkBox_Copy1" IsChecked="{Binding Text, ElementName=txtSum, Converter={StaticResource TextToBoolConvertor}}"  Content="3rd Textbox has Value" HorizontalAlignment="Left" Margin="29,81,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Window>
